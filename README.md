@@ -44,22 +44,22 @@ The difference is that the standard has a clusterip assigned to it and can be on
 
 - Create a ClusterIP Service:
 	Write a YAML definition for a ClusterIP service that exposes a deployment named my-app running on port 8080. Ensure the service maps to port 80 inside the cluster.
-[Part1](p1.yaml)
+	[Part1](lab5/p1.yaml)
 - Set up a NodePort Service:
 	Create a NodePort service that exposes a deployment named backend on port 30001 of each node. 
-[Part2](p2.yaml)
-[Pod to test](p2.1.yaml)
+[Part2](lab5/p2.yaml)
+[Pod to test](lab5/p2.1.yaml)
 ![alt text](image.png)
 - Test Service with Selectors:
 	Create a ClusterIP service named web-service with the selector app: 0ld-web. Deploy two sets of Pods, one with the label app: old-web and another with the label app: api. Verify that only the web Pods receive traffic.
-    [first pod](p3.1.yaml) [the selector](p3.yaml) [second pod](3.2.yaml)
+    [first pod](lab5/p3.1.yaml) [the selector](lab5/p3.yaml) [second pod](lab5/3.2.yaml)
 The api deployment : 
 ![alt text](image-1.png)
 old-web : 
 ![alt text](image-2.png)
 - Change Service Selector:
 	Update an existing service to change its selector from app: old-web to app: new-web. Verify that the traffic is now routed only to Pods with the new label.
-[updated yaml to update the selector](p3.4.yaml)
+[updated yaml to update the selector](lab5/p3.4.yaml)
 
 ![alt text](image-3.png)
 - Configure a Service for Multiple Ports:
