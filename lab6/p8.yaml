@@ -1,0 +1,10 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ebs-sc
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2          # Change to the desired EBS volume type (e.g., io1, st1)
+  fsType: ext4        # File system type (e.g., ext4, xfs)
+reclaimPolicy: Retain 
+allowVolumeExpansion: true

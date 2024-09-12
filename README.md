@@ -67,6 +67,8 @@ old-web :
 https port closed from nginx
 ![alt text](image-14.png)
 ![alt text](image-15.png)
+[Deployment Config file](lab5/p3.5.yaml)
+[Service Config file](lab5/p3.6.yaml)
 ## Lab 6
 1- What is a volume in Kubernetes, and how does it differ from a container's storage?
  a directory containing data accessible to containers in a given pod.
@@ -96,25 +98,49 @@ https port closed from nginx
 
 7- Create a Pod that uses a PVC:
 	Write a YAML definition for a Pod that uses the PVC created in Exercise 3. Mount the PVC to a specific path inside the container and test that the storage is accessible.
+	![alt text](image-16.png)
+	[text](lab6/p3.3.yaml)
+	checking from the minikube ssh 
+	![alt text](image-17.png)
 
 8- Dynamic Provisioning of Persistent Volumes:
 	Create a StorageClass that uses a dynamic provisioner (e.g., AWS EBS, GCE Persistent Disk, or NFS). Deploy a PVC that requests storage dynamically using this StorageClass. Verify that the storage is dynamically provisioned.
+	![alt text](image-18.png)
+	[PV](lab6/p4.2.yaml)
+	[PVC](lab6/p4.1.yaml)
+	[Storage Class](lab6/p4)
 
 9- Use a configMap as a Volume:
 	Create a ConfigMap with some configuration data. Write a Pod YAML definition that mounts this ConfigMap as a volume and verify the data is correctly mounted and accessible inside the container.
+	![alt text](image-19.png)
+	[Config map](lab6/p5.yaml)
+	[Configmap-pod](lab6/p5.1.yaml)
+
 
 10- Create a Pod with a secret as a Volume:
 	Define a Kubernetes Secret containing sensitive data. Create a Pod that mounts this secret as a volume and verify the data is correctly mounted and accessible inside the container in a secure way.
+	![alt text](image-20.png)
+	[Secret](p6.yaml)
+	[Secret Pod](p6.1.yaml)
 
 11- Set up a Pod with a gitRepo volume:
 	Write a YAML definition for a Pod that uses a gitRepo volume to clone a Git repository into the container. Verify that the repository's contents are available inside the container.
+	![alt text](image-21.png)
+	[GitRepo Pod](lab6/p7.yaml)
 
 12- Resize a Persistent Volume Claim (PVC):
 	Create a PVC and bind it to a Pod. After deployment, resize the PVC to request more storage (assuming the underlying storage provider supports resizing). Verify that the PVC has been resized successfully.
+	![alt text](image-22.png)
+[Pod](lab6/8.4.yaml)
+[StorageClass](lab6/8.yaml)
+[PVC](lab6/8.2.yaml)
+[PV](lab6/8.1.yaml)
 
 13- Use subPath for mounting volumes:
 	Create a Pod with a single volume and use the subPath feature to mount different subdirectories of that volume to different paths within a container. Verify that each path in the container corresponds to the correct subdirectory on the volume.
 
-
-
+![alt text](image-23.png)
+[Pod with Subpath](lab6/9.yaml)
+[PVC used](lab6/9.1.yaml)
+[PV used](lab6/9.2.yaml)
 

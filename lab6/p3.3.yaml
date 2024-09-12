@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pvc-pod
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command: ["/bin/sh", "-c", "echo 'Hello, PVC' > /mnt/storage/test.txt && sleep 3600"]
+    volumeMounts:
+    - name: my-storage
+      mountPath: /mnt/storage
+  volumes:
+  - name: my-storage
+    persistentVolumeClaim:
+      claimName: my-pvc
