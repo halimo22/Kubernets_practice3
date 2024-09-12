@@ -65,9 +65,8 @@ old-web :
 - Configure a Service for Multiple Ports:
 	Define a service that exposes multiple ports (e.g., 80 for HTTP and 443 for HTTPS) on a deployment named multi-port-app "get the front in app from your own choice". Verify both ports are accessible within the cluster.
 https port closed from nginx
-![alt text](image-4.png)
-![alt text](image-5.png)
-![alt text](image-6.png)
+![alt text](image-14.png)
+![alt text](image-15.png)
 ## Lab 6
 1- What is a volume in Kubernetes, and how does it differ from a container's storage?
  a directory containing data accessible to containers in a given pod.
