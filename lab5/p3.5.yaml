@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multi-port-app
+  labels:
+    app: multi-port-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: multi-port-app
+  template:
+    metadata:
+      labels:
+        app: multi-port-app
+    spec:
+      containers:
+      - name: multi-port-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80    # HTTP
+        - containerPort: 443   # HTTPS
