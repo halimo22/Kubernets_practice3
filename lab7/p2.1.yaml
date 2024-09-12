@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: restricted-access-binding
+  namespace: my-namespace
+subjects:
+- kind: User
+  name: my-user  # Specify the user who will have this role
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: restricted-pod-access
+  apiGroup: rbac.authorization.k8s.io

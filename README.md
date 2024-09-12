@@ -144,3 +144,89 @@ https port closed from nginx
 [PVC used](lab6/9.1.yaml)
 [PV used](lab6/9.2.yaml)
 
+
+
+## Lab 7
+
+- What is RBAC in Kubernetes, and why is it important?
+
+Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within your organization.
+
+- What are the main components of RBAC in Kubernetes? Describe the purpose of each.
+Role, ClusterRole, RoleBinding and ClusterRoleBinding.
+An RBAC Role or ClusterRole contains rules that represent a set of permissions. Permissions are purely additive (there are no "deny" rules).
+
+A Role always sets permissions within a particular namespace; when you create a Role, you have to specify the namespace it belongs in.
+
+ClusterRole, by contrast, is a non-namespaced resource. The resources have different names (Role and ClusterRole) because a Kubernetes object always has to be either namespaced or not namespaced; it can't be both.
+
+A role binding grants the permissions defined in a role to a user or set of users. It holds a list of subjects (users, groups, or service accounts), and a reference to the role being granted. A RoleBinding grants permissions within a specific namespace whereas a ClusterRoleBinding grants that access cluster-wide.
+
+A RoleBinding may reference any Role in the same namespace. Alternatively, a RoleBinding can reference a ClusterRole and bind that ClusterRole to the namespace of the RoleBinding. If you want to bind a ClusterRole to all the namespaces in your cluster, you use a ClusterRoleBinding
+
+
+- How do Roles differ from ClusterRoles in Kubernetes?
+Cluster role is non namespaced resource while role is namespaced 
+
+- What is a RoleBinding in Kubernetes, and how does it differ from a ClusterRoleBinding?
+
+A role binding grants the permissions defined in a role to a user or set of users. It holds a list of subjects (users, groups, or service accounts), and a reference to the role being granted. A RoleBinding grants permissions within a specific namespace whereas a ClusterRoleBinding grants that access cluster-wide.
+
+A RoleBinding may reference any Role in the same namespace. Alternatively, a RoleBinding can reference a ClusterRole and bind that ClusterRole to the namespace of the RoleBinding. If you want to bind a ClusterRole to all the namespaces in your cluster, you use a ClusterRoleBinding
+
+- How can you list all the Roles and RoleBindings in a specific namespace?
+kubectl get roles -n my-namespace
+kubectl get rolebindings -n my-namespace
+- How do you create a Role that allows a user to read secrets only in a specific namespace? Provide a YAML example.
+[Role File](lab7/p1.yaml)
+- Explain how ClusterRoleBindings can be used to grant permissions across the entire Kubernetes cluster.
+because it is like Rolebinding but provides the same permisions across the cluster
+- What are Subjects in RBAC, and what types of subjects can be used in RoleBindings or ClusterRoleBindings?
+A RoleBinding or ClusterRoleBinding binds a role to subjects. Subjects can be groups, users or ServiceAccounts.
+
+- How can you check the permissions of a particular user or service account in a Kubernetes cluster?
+kubectl auth can-i get secrets --as=system:serviceaccount:<namespace>:<service-account-name>
+- What is the significance of the aggregate-to-admin, aggregate-to-edit, and aggregate-to-view labels in Kubernetes RBAC?
+You can aggregate several ClusterRoles into one combined ClusterRole. A controller, running as part of the cluster control plane, watches for ClusterRole objects with an aggregationRule set. The aggregationRule defines a label selector that the controller uses to match other ClusterRole objects that should be combined into the rules field of this one.
+So any new cluster role with new rules addes the same rules to all cluster roles with the same label.
+
+
+- How does Kubernetes RBAC integrate with external identity providers (e.g., LDAP, OIDC)?
+
+Kubernetes Role-Based Access Control (RBAC) integrates with external identity providers (e.g., LDAP, OpenID Connect (OIDC)) by leveraging authentication mechanisms provided by those identity providers, while RBAC itself focuses on authorization. 
+
+- How do you troubleshoot RBAC permission errors in Kubernetes? What are some common issues?
+through ACL (Access Control List). it is an another security mechanism that can affect RBAC.
+common issues like missing permisions or incorrect roles.
+- Explain how to grant temporary elevated privileges to a user in Kubernetes. What are the security implications?
+by using a role binding and then later deleting the role binding
+security implication are that the user is granted more permissions.
+- What is the difference between using RBAC and Kubernetes' native ServiceAccount permissions for pods?
+ServiceAccount is a Kubernetes resource designed to provide an identity for processes running in Pods. It allows those processes to interact with the Kubernetes API.
+RBAC is a flexible and powerful authorization mechanism in Kubernetes that controls access to resources at a granular level.
+
+- How can you restrict access to certain Kubernetes API groups or resources using RBAC? Provide a YAML example.
+[Role](lab7/p2.yaml)
+[RoleBinding](lab7/p2.1.yaml)
+
+- Write a YAML definition for a ClusterRole that allows listing all pods in any namespace.
+[ClusterRole](lab7/p3.yaml)
+- Create a Role that allows a user to create, update, and delete deployments only within the dev namespace.
+[Role](lab7/p4.yaml)
+
+- Set up a RoleBinding that assigns the view role to a user named john in the testing namespace. Provide the YAML.
+[RoleBinding](lab7/p5.yaml)
+- Deploy a ClusterRoleBinding that grants the edit role to a service account named developer in all namespaces.
+[ClusterRole](lab7/p6.yaml)
+- Write a command to check if a user named alice has permission to delete pods in the production namespace.
+kubectl auth can-i delete pods -n production --as alice
+
+- Write a YAML definition for a Role named pod-executor in the ci-cd namespace that allows creating, listing, and executing Pods. Bind this role to a service account named pipeline-sa using a RoleBinding.
+[Rolebinding](lab7/p7.2.yaml)
+[Role](lab7/p7.1.yaml)
+- Create a Role named "persistent-volume-access" in the storage namespace that grants permissions to create and delete PersistentVolumeClaims. Assign this role to a service account named storage-admin using a RoleBinding.
+[Role](lab7/p8.1.yaml)
+[RoleBinding](lab7/p8.2.yaml)
+- Create a ClusterRole named readonly-cluster that grants read-only access to all resources across the cluster. Then, create a ClusterRoleBinding that assigns this role to a user named alice.
+[ClusterRole](lab7/9.1.yaml)
+[ClusterRoleBinding](lab7/p9.2.yaml)

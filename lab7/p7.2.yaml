@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pod-executor-binding
+  namespace: ci-cd
+subjects:
+- kind: ServiceAccount
+  name: pipeline-sa
+  namespace: ci-cd
+roleRef:
+  kind: Role
+  name: pod-executor
+  apiGroup: rbac.authorization.k8s.io
